@@ -35,8 +35,19 @@ import CurrentProjects from './CurrentProjects';
 import ProjectDashboard from './ProjectDashboard';
 
 import Accreditations from './Accreditations';
+import "animate.css";
+import ReactChatWidget from 'react-chat-widget';
+import 'react-chat-widget/lib/styles.css';
+import { script, letter } from '../script'
+import * as R from 'ramda';
+import ReactHighcharts from 'react-highcharts';
+const ReactHighmaps = require('react-highcharts/ReactHighmaps');
 
-const styles = {
+const messageDelay = 1000;
+
+const { Widget, addResponseMessage, addLinkSnippet, renderCustomComponent, toggleWidget } = ReactChatWidget;
+console.log('ReactChatWidget', ReactChatWidget);
+const styles2 = {
   root: {
     flexGrow: 1,
   },
@@ -99,7 +110,6 @@ const Topic = ({ match }) => (
     <h3>{match.params.topicId}</h3>
   </div>
 );
-
           // <ul>
           //   <li>
           //     <Link to="/">Home</Link>
@@ -113,13 +123,219 @@ const Topic = ({ match }) => (
           // </ul>
 
           // <AppBar2 />
+          const backgroundImage = '/images/word.png';
+          const styles = {
+            main: { 
+              backgroundImage: `url(${backgroundImage})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: '1440px 833px',
+              width: '100%',
+              height: '100vh',
+            },
+          };
+
+          class WordArea extends React.Component {
+            componentDidMount(){
+              this.textInput.focus();
+              // const nextMessage = script[0].messages[2];
+              // addResponseMessage(nextMessage.text);
+              // const Comp = prebuildComponents[nextMessage.componentName];
+              // renderCustomComponent(Comp, {}, true);
+              // toggleWidget();
+            }
+            render() {
+              const { handleSubmit, handleChange} = this.props;
+              return (
+                <form onSubmit={handleSubmit}>
+                  <textarea 
+                    ref={(input) => { this.textInput = input; }} 
+                    style={{
+                      "marginTop": 283,"marginLeft": 364,"borderStyle":"none","resize":"none",
+                      outlineWidth: 0,
+                      width: 700,
+                      height: 492,
+                      fontSize: 19,
+                    }}
+                    value={this.props.text} onChange={handleChange} />
+                </form>
+              );
+            }
+          };
+          const prebuildComponents = {
+            helloComponent: () => <div> hello </div>,
+            snippet: () => (<div style={{
+              background: '#f4f7f9',
+              padding: 15,
+              borderRadius: 10,
+            }} > <img width='300px' src='/images/snippet.png' /> </div>),
+            videoComponent: () => (
+              <div>
+                <video width="350" height="200" autoPlay muted>
+                  <source src="/singapore_civil_service_20s.mp4#t=1" type="video/mp4" />
+                </video>
+              </div>
+            ),
+            videoCallComponent: () => (
+              <div>
+                <video width="250" height="400" autoPlay muted>
+                  <source src="/videocall_demo.mp4#t=1" type="video/mp4"/>
+                </video>
+              </div>
+            ),
+          };
+          class Chat extends React.Component {
+            // componentDidMount() {
+            //   setTimeout(()=>addResponseMessage("Welcome to this awesome chat!"), 7000);
+            // }
+          
+            handleNewUserMessage = (newMessage_notused) => {
+              const processMessage = (messageObject) => {
+                console.log('messageObject', messageObject);
+                switch(messageObject.type) {
+                 case 'messageList':
+                    R.reduce((promise_handle, nextMessageObject)=>{
+                      return promise_handle
+                        .then(
+                          ()=> new Promise(
+                            (resolve, reject) => 
+                              setTimeout(
+                                ()=>{
+                                  processMessage(nextMessageObject)
+                                  resolve();
+                                }, messageDelay/2)
+                          ));
+                    }, Promise.resolve(), messageObject.messageList);
+                    break;
+                 case 'link':
+                    addLinkSnippet(R.pick(['title', 'link', 'target'], messageObject));
+                    break;
+                  case 'custom':
+                    const Comp = prebuildComponents[messageObject.componentName];
+                    renderCustomComponent(Comp, {}, true);
+                    break;
+                  case 'text':
+                  default:
+                    addResponseMessage(messageObject.text);
+                    break;
+                };
+              };
+
+              setTimeout(()=>{
+                processMessage(this.props.nextMessage);
+                this.props.popMessage();
+              }, messageDelay);
+            }
+          
+            render() {
+              
+              const chatMode = this.props.chatMode;
+              let style, className;
+              switch(chatMode) {
+                case 'show':
+                  style = {};
+                  className = 'animated bounceInUp';
+                  break;
+                case 'hide':
+                  style = {};
+                  className = 'animated zoomInDown';
+                  break;
+                case 'init':
+                default:
+                  style = { display: 'none' };
+                  className = '';
+                  break;
+              };
+
+              return (
+                <div className={className} style={style} >
+                  <Widget
+                    titleAvatar='/images/merly.jpeg'
+                    profileAvatar='/images/merly_logo.jpeg'
+                    title='Merly'
+                    subtitle='Ask me any question'
+                    badge={this.props.unreadMessages}
+                    handleNewUserMessage={this.handleNewUserMessage}
+                    onClick={()=>{ console.log('widget click');}}
+                  />
+                </div>
+              );
+            } 
+          };
+
+          // const Angel = ({show}) => {
+          //   const classEntry = show ? 'animated zoomInDown' : 'hidden';
+          //   return (
+          //     <div>
+          //       <img className={classEntry} style={{
+          //         "width":"100px","position":"fixed","right":"140px","top":"190px"
+          //       }} src="/images/cloudwink.png" />
+          //       <Chat className={classEntry} />
+          //     </div>
+          //   );
+          // };
+
+          class LIHome extends React.Component {
+            constructor(props) {
+              super(props);
+              this.state = {
+                unreadMessages: 0,
+                text: letter,
+                stage: 0,
+                messagesQueued: [],
+                chatMode: 'init', // 'show', 'hide'
+              };
+          
+              this.handleChange = this.handleChange.bind(this);
+              this.handleSubmit = this.handleSubmit.bind(this);
+            }
+          
+            handleChange(event) {
+              const text = event.target.value;
+              const stageScenario = script[this.state.stage];
+              const messagesQueued = this.state.messagesQueued;
+              console.log('handleChange');
+              if(R.isEmpty(messagesQueued) && R.test(new RegExp(stageScenario.prompt, 'i'), text)) {
+                console.log('inside');
+                const botMessages = R.filter(R.propEq('speaker', 'bot'), stageScenario.messages);
+                addResponseMessage(botMessages[0].text);
+                this.setState({ text, unreadMessages: 1, messagesQueued: R.tail(botMessages), chatMode: 'show' });
+              } else {
+                console.log('outside');
+                this.setState({ text });
+              };
+            }
+          
+            handleSubmit(event) {
+              alert('An essay was submitted: ' + this.state.text);
+              event.preventDefault();
+            }
+
+            render() {
+              const { unreadMessages, text, chatMode } = this.state;
+              const { handleSubmit, handleChange } = this;
+              return (
+                <div style={styles.main} >
+                  <WordArea { ...{ text, handleSubmit, handleChange }} />
+                  <Chat chatMode={chatMode} unreadMessages={unreadMessages} 
+                    nextMessage={this.state.messagesQueued[0]} 
+                    popMessage={() => {
+                      if(this.unreadMessages !== 0) {
+                        this.setState((ps)=>({ messagesQueued: R.tail(ps.messagesQueued), unreadMessages: 0 }));
+                      } else this.setState((ps)=>({ messagesQueued: R.tail(ps.messagesQueued)}));
+                    }} 
+                  />
+                </div>
+              )
+            };
+          }
+
 export default function App() {
   return (
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
         <div>
-          <Route exact path="/" component={LandingPage} />
+          <Route exact path="/" component={LIHome} />
 
           <Route exact path="/themes" component={Themes} />
           <Route exact path="/tech" component={Technologies} />
