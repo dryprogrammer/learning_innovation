@@ -1,0 +1,117 @@
+.page-content {
+    margin: 15px;
+}
+.btn-primary:hover {
+    background-color: orange !important;
+    border-color: #EB5600 !important;
+}
+.btn-secondary {
+    background-color: white;
+    color: orange;
+    border-color: orange;
+}
+
+/*
+** Topic
+*/
+.topic-container {
+    padding-bottom: 2rem;
+}
+
+.topic-img {
+    height: 50px;
+}
+
+.topic-img-caption {
+    margin: 0 -10px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: gray;
+}
+
+.topic-item {
+    border: 1px solid lightgray;
+    padding: 15px;
+    margin-bottom: 5px;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.topic-item:hover {
+    background-color: aliceblue;
+    transition: all 0.2s;
+}
+
+.topic-title {
+    font-weight: 400;
+}
+
+.topic-details {
+    font-size: 0.8rem;
+    color: gray;
+}
+.topic-content {
+    display: none;
+}
+.topic-description {
+    color: gray;
+    font-size: 0.9rem;
+}
+
+.progress-topic {
+    border: 1px solid lightgray;
+    padding: 15px;
+    margin-bottom: 5px;
+}
+
+.progress-topic textarea {
+    width: 100%;
+    height: 200px;
+}
+
+.skill-required {
+    display: inline-block;
+    padding: 5px;
+    pointer: cursor;
+}
+.skill-required:hover {
+    border-radius: 5px;
+    background-color: lightgray;
+}
+.skill-required img {
+    height: 25px;
+}
+.skill-required .caption {
+    color: gray;
+    font-size: 0.8rem;
+}
+
+.tags {
+}
+
+.pagination {
+    margin-right: -15px;
+}
+
+.action-btn-container {
+    text-align: right;
+}
+
+.insight-item::before {
+    content: "\25CF";
+}
+.payment-container {
+    text-align: right;
+    padding-top: 15px;
+}
+.payment-dollar {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    color: gray;
+}
+.due-date {
+    font-size: 0.9rem;
+    color: gray;
+    font-weight: 500;
+}
