@@ -41,6 +41,8 @@ import 'react-chat-widget/lib/styles.css';
 import { script, letter } from '../script'
 import * as R from 'ramda';
 import ReactHighcharts from 'react-highcharts';
+import { Table } from './Table';
+
 const ReactHighmaps = require('react-highcharts/ReactHighmaps');
 
 const messageDelay = 1000;
@@ -125,7 +127,7 @@ const Topic = ({ match }) => (
           // <AppBar2 />
           const backgroundImage = '/images/word.png';
           const styles = {
-            main: { 
+            main: {
               backgroundImage: `url(${backgroundImage})`,
               backgroundRepeat: 'no-repeat',
               backgroundSize: '1440px 833px',
@@ -169,10 +171,11 @@ const Topic = ({ match }) => (
               borderRadius: 10,
             }} > <img width='300px' src='/images/snippet.png' /> </div>),
             videoComponent: () => (
-              <div>
-                <video width="350" height="200" autoPlay muted>
-                  <source src="/singapore_civil_service_20s.mp4#t=1" type="video/mp4" />
+              <div style={{}} >
+                <video width="300" height="180" autoPlay muted>
+                  <source src="/digital_transformation_20s.mp4#t=1" type="video/mp4" />
                 </video>
+                <img width='300px' src="/images/service_dinner_speech.png" />
               </div>
             ),
             videoCallComponent: () => (
@@ -336,6 +339,7 @@ export default function App() {
       <Router>
         <div>
           <Route exact path="/" component={LIHome} />
+          <Route exact path="/course_design" component={Table} />
 
           <Route exact path="/themes" component={Themes} />
           <Route exact path="/tech" component={Technologies} />

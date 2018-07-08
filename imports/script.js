@@ -5,7 +5,7 @@ export const script = [
       {
         speaker: 'bot',
         type: 'text',
-        text: "Hi Hannah, I sensed that you are having some trouble with your doc. Do you need help?",
+        text: "Hi Gabriel, I sensed that you are having some trouble with your doc. Do you need help?",
       },
       {
         speaker: 'user',
@@ -24,8 +24,8 @@ export const script = [
           {
             type: 'link',
             componentName: 'templateLink',
-            title: 'Invitation Template',
-            link: '\\\\waterspark\\SusYYY\\drive\\MOZ\\\nResources\\Templates\\townhalls',
+            title: ' Organization transformation paper',
+            link: '\\\\waterspark\\SusYYY\\drive\\MOZ\\\nResources\\Paper\\OrganizationTransformation2016',
             target: '_blank'
           },
         ],
@@ -41,7 +41,7 @@ export const script = [
         messageList: [
           {
             type: 'text',
-            text: "This video was recommended by your manager during the events discussion.",
+            text: "Your colleagues from your agency mentioned this video and article were useful.",
           },
           {
             type: 'custom',
@@ -55,45 +55,6 @@ export const script = [
       },
       {
         speaker: 'user',
-        text: 'thanks Merly, this is helpful! I wanna learn more. Anything more u can share?',
-        type: 'text',
-      },
-      {
-        type: 'messageList',
-        speaker: 'bot',
-        messageList: [
-          {
-            type: 'text',
-            text: 'sure! Your colleagues from your agency have told me they have found this to be helpful. I\'ve highlighted the paragraph that talks about responsibilities.',
-          },
-          {
-            type: 'custom',
-            componentName: 'snippet',
-          },
-          {
-            type: 'link',
-            title: 'Advanced Writing and Staff Work',
-            link: 'https://www.mindef.gov.sg/oms/content/imindef/publications/pointer/supplements/onstaffwork/_jcr_content/imindefPars/0013/file.res/ON%20STAFF%20WORK(L)_280809.pdf',
-            target: '_blank'
-          },
-          {
-            type: 'text',
-            text: "Do you find it helpful?",
-          },
-        ],
-      },
-      {
-        speaker: 'user',
-        text: 'Omg you are really amazing Merly! How do you know staffing is another concern on my mind!',
-        type: 'text',
-      },
-      {
-        speaker: 'bot',
-        text: '😁',
-        type: 'text',
-      },
-      {
-        speaker: 'user',
         text: 'heyyy checked out the materials I still have some questions on both writing and staffing',
         type: 'text',
       },
@@ -103,17 +64,13 @@ export const script = [
         messageList: [
           {
             type: 'text',
-            text: 'Don\'t fret! I know of someone who can help you! Linda Khoo, Linda_khoo@moz.gov.sg, ext: 6743 may be able to help you!',
+            text: 'Don\'t fret! I know of someone who can help you! Linda Khoo from the Strat Planning unit, Linda_khoo@moz.gov.sg, ext: 6743 may be able to help you!',
           },
-          // {
-          //   type: 'custom',
-          //   componentName: 'videoCallComponent',
-          // },
         ],
       },
       {
         speaker: 'user',
-        text: 'hey I called. Linda is great and I had quite a nbr of questions answered! Writing and staffing are really useful skills for any public officer. Can you help me curate a list of resources? Reminds me of this coming Tuesday morning. I hope to spend some time going through them! And btw how else can I pick up more writing staffing tips?',
+        text: 'hey I called. Linda is great and I had quite a nbr of questions answered! Just wondering, do you have any recoomendations on change management courses?',
         type: 'text',
       },
       {
@@ -122,13 +79,13 @@ export const script = [
         messageList: [
           {
             type: 'text',
-            text: 'Ok sure. I see that you\'ve completed the regular writing training. Based on your job title, I would recommend that you take a look at this course which is helpful when writing invitations as public servants.',
+            text: 'Ok sure. I see that you\'ve completed the regular training. Based on your job title, I would recommend this course.',
           },
           {
             type: 'link',
             speaker: 'bot',
-            title: 'From Organisational Capabilities to Capability Plans',
-            link: 'https://www.cscollege.gov.sg/programmes/Pages/Display%20Programme.aspx?ePID=e3wfg83wrgcahb36bbuw6efl7s',
+            title: 'Leading and Sustaining Change',
+            link: 'https://www.cscollege.gov.sg/programmes/pages/display%20programme.aspx?epid=lhkrr7r1lnwcg4om7264ncftoo',
             target: '_blank'
           },
         ],
@@ -171,7 +128,7 @@ const actions = [
   'take a course CSC',
 ];
 
-export const letter = `
+export const letter3 = `
     To: Chan Ling Shan
     From: Hannah Tan
     Subject: Invitation to Attend Townhall Event
@@ -185,3 +142,22 @@ export const letter = `
 export const letter2 = `
     2.     This is the second townhall in FY'18. The upcoming townhall will focus on 
   `;
+
+export const letter = `
+MOZ STRATEGIES TO PUBLIC SERVICE TRANSFORMATION                 FY18/2_139
+
+Purpose:    For discussion
+Date:          January 2016
+
+
+
+Background
+
+1.            In 2017, the Public Service embarked on a journey of Public Sector Transformation to design citizen-centric policies, services, and partner the community.
+
+2            ODD has been tasked to look into rollout strategies for agency wide transformation.
+
+Strategies of change management
+
+3.            
+`;
